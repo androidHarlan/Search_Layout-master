@@ -168,6 +168,7 @@ public class SearchView extends LinearLayout {
                         insertData(et_search.getText().toString().trim());
                         queryData("");
                     }
+                    listView.setVisibility(View.GONE);
                 }
                 return false;
             }
