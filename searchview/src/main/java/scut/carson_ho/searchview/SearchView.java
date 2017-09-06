@@ -205,15 +205,15 @@ public class SearchView extends LinearLayout {
              */
             @Override
             public void onClick(View v) {
-
-                // 2. 点击搜索键后，对该搜索字段在数据库是否存在进行检查（查询）->> 关注1
-                boolean hasData = hasData(et_search.getText().toString().trim());
-                // 3. 若存在，则不保存；若不存在，则将该搜索字段保存（插入）到数据库，并作为历史搜索记录
-                if (!hasData) {
-                    insertData(et_search.getText().toString().trim());
-                    queryData("");
+                if(!et_search.getText().toString().trim().equals("")&&!et_search.getText().toString().trim().equals(null)){
+                    // 3. 若存在，则不保存；若不存在，则将该搜索字段保存（插入）到数据库，并作为历史搜索记录
+                    boolean hasData = hasData(et_search.getText().toString().trim());
+                    if (!hasData) {
+                        insertData(et_search.getText().toString().trim());
+                        queryData("");
+                    }
                 }
-
+                // 2. 点击搜索键后，对该搜索字段在数据库是否存在进行检查（查询）->> 关注1
                 listView.setVisibility(View.GONE);
                 if (!(searchButton == null)){
                     searchButton.SearchText(et_search.getText().toString());
@@ -305,6 +305,7 @@ public class SearchView extends LinearLayout {
         adapter = new SimpleCursorAdapter(context, android.R.layout.simple_list_item_1, cursor, new String[] { "name" },
                 new int[] { android.R.id.text1 }, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         // 3. 设置适配器
+
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
